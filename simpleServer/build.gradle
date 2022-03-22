@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version "${springVersion}"
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "org.openapi.generator" version "${openapGeneratorVersion}"
 }
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -12,11 +13,37 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter-logging')
+    implementation('org.springframework.boot:spring-boot-starter-validation')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-    compile "org.openapitools:openapi-generator-gradle-plugin:${openapGeneratorVersion}"
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.6'
+    implementation group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
+    implementation group: 'org.openapitools', name: 'jackson-databind-nullable', version: '0.2.2'
 }
 
 test {
     useJUnitPlatform()
+}
+
+openApiGenerate {
+    generatorName = "spring"
+    inputSpec = "${project.projectDir}/src/main/resources/pet.yaml".toString()
+    outputDir = "${project.projectDir}".toString()
+    apiPackage = "org.generated.openapi.pet.api"
+    invokerPackage = "org.generated"
+    modelPackage = "org.generated.openapi.pet.model"
+    globalProperties = [
+            apis: "",
+            models: ""
+    ]
+    configOptions = [
+            dateLibrary: "java8",
+            interfaceOnly: "true",
+            skipDefaultInterface: "true"
+    ]
+}
+
+openApiValidate {
+    inputSpec = "${project.projectDir}/src/main/resources/pet.yaml".toString()
+    recommend = true
 }
