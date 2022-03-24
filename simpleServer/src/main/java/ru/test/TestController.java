@@ -1,4 +1,4 @@
-package org.generate.swagger.server.test;
+package ru.test;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

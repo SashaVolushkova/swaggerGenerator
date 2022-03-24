@@ -10,6 +10,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
+    implementation("org.jeasy:easy-random-core:5.0.0")
     implementation('org.springframework.boot:spring-boot-starter')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter-logging')
@@ -29,9 +30,9 @@ openApiGenerate {
     generatorName = "spring"
     inputSpec = "${project.projectDir}/src/main/resources/pet.yaml".toString()
     outputDir = "${project.projectDir}".toString()
-    apiPackage = "org.generated.openapi.pet.api"
-    invokerPackage = "org.generated"
-    modelPackage = "org.generated.openapi.pet.model"
+    apiPackage = "ru.generated.openapi.pet.api"
+    invokerPackage = "ru.generated"
+    modelPackage = "ru.generated.openapi.pet.model"
     globalProperties = [
             apis: "",
             models: ""
